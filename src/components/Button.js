@@ -6,6 +6,7 @@ const Button = ({ buttonText, clickHandler, children, margin }) => {
       suffix={children ?? null}
       shadow="2"
       hoverShadow="3"
+      rounded="circle"
       p={"1.5rem"}
       m={margin}
       onClick={clickHandler}

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider as StyletronProvider, DebugEngine } from "styletron-react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { StyleReset } from "atomize";
-import { LogIn } from "./pages/Login";
+import { Dashboard } from "./pages/Dashboard";
 
 const debug =
   process.env.NODE_ENV === "production" ? void 0 : new DebugEngine();
@@ -14,8 +14,8 @@ ReactDOM.render(
   <React.StrictMode>
     <StyletronProvider value={engine} debug={debug} debugAfterHydration>
       <StyleReset />
-      <LogIn />
+      <Dashboard />
     </StyletronProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("app-root")
 );
