@@ -1,6 +1,23 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import LogInPage from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+
+function ProtectedRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={() => {
+        const isAuthed = false; // Implement this with Redux and stuff
+        return isAuthed ? children : <Redirect to="/" />;
+      }}
+    />
+  );
+}
 
 function Routes() {
   return (
@@ -9,9 +26,9 @@ function Routes() {
         <Route exact path="/">
           <LogInPage />
         </Route>
-        <Route exact path="/dashboard">
+        <ProtectedRoute exact path="/dashboard">
           <Dashboard />
-        </Route>
+        </ProtectedRoute>
         <Route path="*">
           <LogInPage />
         </Route>
