@@ -12,7 +12,7 @@ function ProtectedRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={() => {
-        const isAuthed = false; // Implement this with Redux and stuff
+        const isAuthed = true; // Implement this with Redux and stuff
         return isAuthed ? children : <Redirect to="/" />;
       }}
     />
