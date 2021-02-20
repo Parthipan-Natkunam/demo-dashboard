@@ -55,7 +55,12 @@ function LogInForm() {
             />
           }
         />
-        <Button buttonText="LogIn" iconName="LongRight" type="submit">
+        <Button
+          buttonText="LogIn"
+          iconName="LongRight"
+          type="submit"
+          margin={{ l: "auto" }}
+        >
           <Icon name="LongRight" size="16px" color="white" m={{ l: "1rem" }} />
         </Button>
       </form>
