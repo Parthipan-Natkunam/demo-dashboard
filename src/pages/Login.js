@@ -19,7 +19,7 @@ const BrandText = styled(Text)`
   border-radius: 12px;
 `;
 
-export function LogIn() {
+function LogIn() {
   return (
     <BoxedRow m={0}>
       <FullPageColumn d="flex" align="center" justify="center">
@@ -37,3 +37,5 @@ export function LogIn() {
     </BoxedRow>
   );
 }
+
+export default LogIn;

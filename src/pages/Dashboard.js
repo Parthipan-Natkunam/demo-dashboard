@@ -14,7 +14,7 @@ const MainContent = styled(Div)`
   flex: 1 1 calc(100vw - 265px);
 `;
 
-export function Dashboard() {
+function Dashboard() {
   return (
     <BoxedRow m={0} flexDir={{ xs: "column", sm: "row" }}>
       <SideBar bg="success900" maxH={{ xs: "60px", sm: "100%" }} p="0.5rem">
@@ -30,3 +30,5 @@ export function Dashboard() {
     </BoxedRow>
   );
 }
+
+export default Dashboard;
