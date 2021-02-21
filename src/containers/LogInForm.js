@@ -1,6 +1,9 @@
 import { Div, Icon, Input } from "atomize";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { Button } from "../components";
+import { auth } from "../api";
+import { setToken, resetToken, setToast, resetToast } from "../store/appSlice";
 
 const Container = styled(Div)`
   flex-direction: column;
@@ -8,13 +11,24 @@ const Container = styled(Div)`
 `;
 
 function LogInForm() {
+  const dispatch = useDispatch();
+
   const handleLogIn = (ev) => {
     ev.preventDefault();
-    const payload = {
+    const credentials = {
       username: ev.target.username.value,
       password: ev.target.password.value,
     };
-    console.log(payload);
+    auth
+      .login(credentials)
+      .then(({ token }) => {
+        dispatch(setToken(token));
+        dispatch(resetToast());
+      })
+      .catch((error) => {
+        dispatch(resetToken());
+        dispatch(setToast({ type: "error", message: error }));
+      });
   };
 
   return (
