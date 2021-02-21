@@ -4,15 +4,17 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectisAuthed } from "./store/appSlice";
 import LogInPage from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 function ProtectedRoute({ children, ...rest }) {
+  const isAuthed = useSelector(selectisAuthed);
   return (
     <Route
       {...rest}
       render={() => {
-        const isAuthed = true; // Implement this with Redux and stuff
         return isAuthed ? children : <Redirect to="/" />;
       }}
     />
