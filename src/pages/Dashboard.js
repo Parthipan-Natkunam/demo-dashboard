@@ -1,6 +1,10 @@
 import { Row, Div } from "atomize";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectCurrentTab } from "../store/dashboardSlice";
 import SideBar from "../containers/Sidebar";
+import DataTab from "../containers/DataDisplay";
+import ProfileTab from "../containers/Profile";
 
 const BoxedRow = styled(Row)`
   width: 100%;
@@ -11,7 +15,20 @@ const MainContent = styled(Div)`
   flex: 1 1 calc(100vw - 265px);
 `;
 
+const TabContent = ({ tabId }) => {
+  switch (tabId) {
+    case 0:
+      return <DataTab />;
+    case 1:
+      return <ProfileTab />;
+    default:
+      return null;
+  }
+};
+
 function Dashboard() {
+  const currentTab = useSelector(selectCurrentTab);
+
   return (
     <BoxedRow m={0} flexDir={{ xs: "column", sm: "row" }}>
       <SideBar />
@@ -20,7 +37,7 @@ function Dashboard() {
         maxH={{ xs: "calc(100% - 60px)", sm: "100%" }}
         p="0.5rem"
       >
-        <Div>main content</Div>
+        <TabContent tabId={currentTab} />
       </MainContent>
     </BoxedRow>
   );
