@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../api";
 import { resetToken, toggleLoading, selectisLoading } from "../store/appSlice";
+import { selectCurrentTab, setCurrentTab } from "../store/dashboardSlice";
 
 const SideBar = styled(Div)`
   flex: 0 0 160px;
@@ -23,6 +24,9 @@ const NavList = styled.ul`
     & > svg {
       fill: #fff;
     }
+    &.active {
+      border-bottom: 3px solid #fff;
+    }
     &:not(:first-child):not(:last-child) {
       margin: 0 1rem;
     }
@@ -32,6 +36,7 @@ const NavList = styled.ul`
       padding: 0.5rem;
       &.active {
         border-radius: 9px 0 0 9px;
+        border-bottom: none;
         background: rgb(225, 228, 232);
         & > span {
           color: #000;
@@ -66,6 +71,7 @@ function Sidebar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectisLoading);
+  const currentTab = useSelector(selectCurrentTab);
 
   const handleLogout = () => {
     dispatch(toggleLoading(true));
@@ -79,6 +85,10 @@ function Sidebar() {
       .catch(() => {
         dispatch(toggleLoading(false));
       });
+  };
+
+  const handleTabChange = (tabId) => {
+    dispatch(setCurrentTab(tabId));
   };
 
   return (
@@ -97,13 +107,19 @@ function Sidebar() {
         </Text>
       </Div>
       <NavList>
-        <li className={"active"}>
+        <li
+          className={currentTab === 0 ? "active" : ""}
+          onClick={() => handleTabChange(0)}
+        >
           <Icon name="FolderSolid" color="inherit" size="30px" />
           <Text tag="span" textColor="inherit">
             Data
           </Text>
         </li>
-        <li>
+        <li
+          className={currentTab === 1 ? "active" : ""}
+          onClick={() => handleTabChange(1)}
+        >
           <Icon name="UserSolid" color="inherit" size="30px" />
           <Text tag="span" textColor="inherit">
             Profile
