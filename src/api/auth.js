@@ -8,8 +8,17 @@ class AuthAPI {
     return new Promise((resolve, reject) => {
       http
         .post(this.#loginEndpoint, { username, password })
-        .then((response) => resolve(response?.data?.data))
+        .then((response) => {
+          const {
+            data: {
+              data: { token },
+            },
+          } = response;
+          window.localStorage.setItem("Token", token);
+          resolve(response?.data?.data);
+        })
         .catch((error) => {
+          window.localStorage.removeItem("Token");
           reject(error?.response?.data?.message ?? error.message);
         });
     });
@@ -18,10 +27,15 @@ class AuthAPI {
   logout() {
     return new Promise((resolve, reject) => {
       http
-        .post(this.#logoutEndpoint)
-        .then((response) => resolve(response?.data))
+        .post(this.#logoutEndpoint, undefined, {
+          headers: { token: window.localStorage.getItem("Token") ?? null },
+        })
+        .then((response) => {
+          window.localStorage.removeItem("Token");
+          resolve(response?.data?.data?.toUpperCase());
+        })
         .catch((error) =>
-          reject(error?.response?.data?.message?.toUpperCase() ?? error.message)
+          reject(error?.response?.data?.message ?? error.message)
         );
     });
   }
