@@ -48,7 +48,14 @@ function LogInForm() {
   };
 
   return (
-    <Container d="flex" justify="space-between" bg="white" p="1rem" shadow="3">
+    <Container
+      d="flex"
+      justify="space-between"
+      bg="white"
+      p="1rem"
+      shadow="3"
+      data-testid="login-form"
+    >
       <form onSubmit={handleLogIn}>
         <Input
           placeholder="User Name"
